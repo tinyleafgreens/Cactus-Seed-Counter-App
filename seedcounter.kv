@@ -1,0 +1,257 @@
+HomePageBoxLayout:
+
+<HomePageBoxLayout>:
+    orientation: "vertical"
+    size: root.width, root.height
+
+    Image:
+        source: 'images/header.png'
+        size_hint: 1, 2.5
+        
+    Button:
+        text: "Click Here for App Instructions"
+        size_hint: .8, 1
+        pos_hint: {'center_x': .5}
+        on_press: root.switch_to_instructionspage()
+        background_color: (.51372, 0.64706, 0.5, 0.5)
+        color: (0, 0, 0, 1)
+
+    BoxLayout:
+        orientation: "horizontal"
+        Label:
+            size_hint: 0.1, 1
+            post_hint: {"x": 0}
+        Button:
+            text: "Capture New Image"
+            size_hint: 0.4, 1
+            on_press: root.take_shot()
+            #pos_hint: {'x': 0.5}
+            background_color: (.51372, 0.64706, 0.5, 0.5)
+            color: (0, 0, 0, 1)
+        Button:
+            text: "Choose Image"
+            size_hint: 0.4, 1
+            #pos_hint: {'right': 0.5}
+            on_press: root.switch_to_choosefilepage()
+            background_color: (.51372, 0.64706, 0.5, 0.5)
+            color: (0, 0, 0, 1)
+        Label:
+            size_hint: 0.1, 1
+            post_hint: {"right": 1}
+    Label: 
+    	size_hint: 1, 0.25
+    Label:
+        text:""
+        color: 1, 1, 1, 1
+        size_hint: 1, 1 # can be a multiple or none
+        #on_press: root.show_banner()
+        #pos_hint has
+        # x, center_x, right as % of box width
+        # y, center_y, top as % of box height
+
+
+
+
+<InstructionsPage>
+    orientation:"vertical"
+    Label:
+    	size_hint: 1, .5
+    	color: (0, 0, 0, 1)
+    	halign: 'center'
+    	valign: 'bottom'
+    	text: "[b][u] Usage Instructions [/u][/b]"
+    	markup: True
+    Label:
+        valign: 'top'
+        halign: 'center'
+        text: " - This app has been designed to handle cactus seeds which are dark and round, such as trichocereus. \n \n - Spread your seeds out over an 8.5 x 11 sheet of white copy paper. For most accurate results, try to spread seeds to avoid touching and remove any excess debris. The program will attempt to interpret seeds which are touching and ignore anything which isn't a seed.  \n \n - Take the photo from directly overhead so that you see all four corners of the piece of paper in the photo. The algorithm will remove any excess which is not the paper. If all four edges cannot be found, the program will still attempt cropping, however, it may not be as accurate. \n \n - Be sure to review the seed contours to ensure that only seeds were counted by the program and additional edges/non-seeds were not picked up by mistake. \n\n - Developed by Tinyleaf Greens. For feedback or suggestions on other apps, please send an email to tinyleafgreens@gmail.com. Thanks for trying our very first app!"
+        text_size: root.width, None
+        size_hint: 1 , 4
+        color: (0, 0, 0, 1)
+
+    BoxLayout:
+        orientation: "horizontal"
+        Label:
+    	    size_hint: 0.1, 1
+    	    pos_hint: {"x": 0}
+        Button:
+            text: "Return to Home Page"
+            on_press: root.return_to_homepage()
+            background_color: (.51372, 0.64706, 0.5, 0.5)
+            color: (0, 0, 0, 1)
+            size_hint: 0.8, 1
+        Label:
+    	    size_hint: 0.1, 1
+    	    pos_hint: {"right": 1}
+
+
+
+<FileChooserPage>
+    id: file_chooser
+    orientation: "vertical"
+    
+    Image:
+        source: 'images/header.png'
+        size_hint: 1, 1
+
+    FileChooserIconView
+        id: file_chooser
+        rootpath: '/storage/emulated/0'
+        on_submit: root.selected(file_chooser.selection)
+        size_hint: 1 , 4
+
+    Label:
+        text: "Double tap a file to choose it"
+        size_hint: 1, 0.4
+        color: 0, 0, 0, 1
+        
+    BoxLayout:
+        orientation: "horizontal"
+        Label:
+    	    size_hint: 0.1, 1
+    	    pos_hint: {"x": 0}
+        Button:
+            text: "Return to Home Page"
+            on_press: root.return_to_homepage()
+            background_color: (.51372, 0.64706, 0.5, 0.5)
+            color: (0, 0, 0, 1)
+            size_hint: 0.8, 1
+        Label:
+    	    size_hint: 0.1, 1
+    	    pos_hint: {"right": 1}
+    Label: 
+    	size_hint: 1, 0.25
+    Label:
+        id: file_chooser_message
+        text: ''
+<ResultsPage>
+    id: results
+    orientation: "vertical"
+
+    Image:
+        source: 'images/header.png'
+        size_hint: 1, 1
+
+    Label:
+        id: results_text
+        size_hint: 1 , 2
+        color: (0, 0, 0, 1)
+        text_size: root.width, None
+        markup: True
+        halign: 'center'
+        valign: 'bottom'
+        
+        
+    BoxLayout:
+    	orientation: "horizontal"
+    	Label:
+    	    size_hint: 0.1, 1
+    	    pos_hint: {"x": 0}
+    	Button:
+    	    text: "See Original Image"
+    	    size_hint: 0.4, 1
+    	    on_press: root.show_original_popup()
+    	    pos_hint: {"x": 0.5}
+    	    background_color: (.51372, 0.64706, 0.5, 0.5)
+    	    color: (0, 0, 0, 1)
+    	Button:
+    	    text: "See Seed Contours"
+    	    size_hint: 0.4, 1
+    	    on_press: root.show_contour_popup()
+    	    pos_hint: {"x": 0.5}
+    	    background_color: (.51372, 0.64706, 0.5, 0.5)
+    	    color: (0, 0, 0, 1)
+        Label:
+    	    size_hint: 0.1, 1
+    	    pos_hint: {"right": 1}
+    	    
+    BoxLayout:
+        orientation: "horizontal"
+        Label:
+            size_hint: 0.1, 1
+            post_hint: {"x": 0}
+        Button:
+            text: 'Return to Home Page'
+            size_hint: 0.8, 1
+            on_press: root.return_to_homepage()
+            #pos_hint: {'x': 0.5}
+            background_color: (.51372, 0.64706, 0.5, 0.5)
+            color: (0, 0, 0, 1)
+        Label
+            size_hint: 0.1, 1
+            pos_hint: {"right": 1}
+            
+    BoxLayout:
+        orientation: "horizontal"
+        Label:
+            size_hint: 0.1, 1
+            post_hint: {"x": 0}
+        Button:
+            text: "Capture New Image"
+            size_hint: 0.4, 1
+            on_press: root.take_another_photo()
+            #pos_hint: {'x': 0.5}
+            background_color: (.51372, 0.64706, 0.5, 0.5)
+            color: (0, 0, 0, 1)
+        Button:
+            text: "Choose Image"
+            size_hint: 0.4, 1
+            #pos_hint: {'right': 0.5}
+            on_press: root.switch_to_choosefilepage()
+            background_color: (.51372, 0.64706, 0.5, 0.5)
+            color: (0, 0, 0, 1)
+        Label:
+            size_hint: 0.1, 1
+            post_hint: {"right": 1}
+
+    Label: 
+    	size_hint: 1, 0.25
+    Label:
+        text:""
+        color: 1, 1, 1, 1
+        size_hint: 1, 1
+            
+<ContourPopup>
+    id: contour
+    size_hint: 0.8, 0.8
+    title: 'Seed Image Contour \n(Tap outside of box to continue)'
+    pos_hint: {"x-center": 0.5}
+    Image:
+        id: contours_image
+        source: root.img_src
+        
+<OriginalPopup>
+    id: original
+    size_hint: 0.8, 0.8
+    title: 'Original Image \n(Tap outside of box to continue)'
+    pos_hint: {"x-center": 0.5}
+    Image:
+        id: original_image
+        source: root.img_src
+        
+<InputPopup>:
+    id:popup
+    size_hint: 0.75, 0.3
+    title: 'Invalid Input'
+    pos_hint: {"x_center": 0.5}
+
+    Label:
+        text: 'Be sure to choose a photo file only (.jpg or .png). \n\nTap anywhere outside of the box to continue.'
+        size_hint: 1, 1
+        text_size: self.width, None
+        post_hint: {"top": 0.1}
+        
+<InvalidPermissionsPopup>:
+    id:ip_popup
+    size_hint: 0.75, 0.3
+    title: 'Invalid Permissions'
+    pos_hint: {"x_center": 0.5}
+
+    Label:
+        text: 'Permissions to camera and/or file storage were not granted. Please go into your settings and allow these permissions to continue. \n\nTap anywhere outside of the box to continue.'
+        size_hint: 1, 1
+        text_size: self.width, None
+        post_hint: {"top": 0.1}
+        
+        
+
